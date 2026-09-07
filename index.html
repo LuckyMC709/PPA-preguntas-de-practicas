@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1f33" />
+    <title>PPA · Banco de preguntas ANAC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Volver al inicio">
+          <span class="brand-mark">✦</span>
+          <span>
+            <strong>PPA</strong>
+            <small>Banco de estudio</small>
+          </span>
+        </a>
+        <div class="topbar-note">Piloto Privado de Avión · Argentina</div>
+      </header>
+
+      <main id="app" tabindex="-1">
+        <section id="setup-view" class="view" aria-labelledby="setup-title">
+          <div class="intro-grid">
+            <div class="intro-copy">
+              <p class="eyebrow">Prepará tu examen con calma</p>
+              <h1 id="setup-title" tabindex="-1">Practicá el banco oficial de PPA.</h1>
+              <p class="lead">
+                Las 313 preguntas públicas de ANAC, organizadas por capítulo, con corrección
+                inmediata, simulacro y un repaso diario de 10 preguntas.
+              </p>
+              <div class="quick-facts" aria-label="Datos del banco">
+                <span><b>313</b> preguntas</span>
+                <span><b>8</b> capítulos</span>
+                <span><b>100</b> en simulacro</span>
+                <span><b>10</b> repaso diario</span>
+              </div>
+            </div>
+            <div class="plane-card" aria-hidden="true">
+              <div class="sky-orbit orbit-one"></div>
+              <div class="sky-orbit orbit-two"></div>
+              <div class="plane-icon">✈</div>
+              <span class="coordinate coordinate-one">34° 36′ S</span>
+              <span class="coordinate coordinate-two">58° 22′ O</span>
+            </div>
+          </div>
+
+          <form id="config-form" class="setup-card">
+            <div class="setup-card-heading">
+              <div>
+                <p class="eyebrow">Antes de empezar</p>
+                <h2>Elegí cómo querés estudiar</h2>
+              </div>
+              <span class="setup-step">1 de 1</span>
+            </div>
+
+            <div class="setup-grid">
+              <fieldset>
+                <legend>Qué querés practicar</legend>
+                <label class="choice-card selected">
+                  <input type="radio" name="scope" value="all" checked />
+                  <span class="choice-icon">▦</span>
+                  <span class="choice-content">
+                    <strong>Banco completo</strong>
+                    <small>Las 313 preguntas de los 8 capítulos.</small>
+                  </span>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="scope" value="simulation" />
+                  <span class="choice-icon">◴</span>
+                  <span class="choice-content">
+                    <strong>Simulacro ANAC</strong>
+                    <small>100 preguntas y referencia de aprobación al 75%.</small>
+                  </span>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="scope" value="daily" />
+                  <span class="choice-icon">☀</span>
+                  <span class="choice-content">
+                    <strong>Repaso diario</strong>
+                    <small>10 preguntas aleatorias para practicar un rato cada día.</small>
+                  </span>
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>En qué orden</legend>
+                <label class="choice-card selected">
+                  <input type="radio" name="order" value="ordered" checked />
+                  <span class="choice-icon">≡</span>
+                  <span class="choice-content">
+                    <strong>Orden oficial</strong>
+                    <small>Capítulo por capítulo, como aparece en el PDF.</small>
+                  </span>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="order" value="random" />
+                  <span class="choice-icon">⤨</span>
+                  <span class="choice-content">
+                    <strong>Al azar</strong>
+                    <small>Mezcla las preguntas para entrenar como examen.</small>
+                  </span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="filter-row">
+              <label for="chapter-select">Capítulo <span>(opcional)</span></label>
+              <select id="chapter-select" name="chapter">
+                <option value="all">Todos los capítulos</option>
+              </select>
+              <p id="chapter-help">Podés elegir un capítulo si querés repasar un tema puntual.</p>
+            </div>
+
+            <button class="primary-button" type="submit">
+              Empezar práctica <span aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <aside class="source-card">
+            <div class="source-badge">ANAC</div>
+            <div>
+              <strong>Material público de estudio</strong>
+              <p>
+                La página usa el banco de preguntas, la teoría y las figuras publicadas por ANAC.
+                Podés abrir los documentos originales cuando quieras.
+              </p>
+              <div class="source-links">
+                <a href="preguntas-ppa.pdf" target="_blank" rel="noopener">Banco de preguntas</a>
+                <a href="teoria-ppa.pdf" target="_blank" rel="noopener">Teoría y análisis</a>
+                <a href="figuras-ppa.pdf" target="_blank" rel="noopener">Anexo de figuras</a>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section id="quiz-view" class="view" hidden aria-labelledby="quiz-question">
+          <div class="quiz-header">
+            <div>
+              <button id="quit-button" class="text-button" type="button">← Configuración</button>
+              <div class="quiz-meta">
+                <span id="quiz-scope-label" class="pill">Banco completo</span>
+                <span id="quiz-chapter-label" class="muted-label">Capítulo 1</span>
+              </div>
+            </div>
+            <div class="score-box">
+              <span>Correctas</span>
+              <strong id="live-score">0 / 0</strong>
+            </div>
+          </div>
+
+          <div class="progress-row">
+            <span id="progress-label">Pregunta 1 de 313</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><div id="progress-bar" class="progress-bar"></div></div>
+
+          <article class="question-card">
+            <div class="question-heading">
+              <span id="question-number" class="question-number">Pregunta 1</span>
+              <span id="question-figure-tag" class="figure-tag" hidden>Incluye figura</span>
+            </div>
+            <h1 id="quiz-question" tabindex="-1">Cargando pregunta…</h1>
+            <div id="question-figure" class="question-figure" hidden>
+              <div class="figure-toolbar">
+                <span id="figure-caption">Figura oficial ANAC</span>
+                <a id="figure-open-link" class="inline-link" href="figuras-ppa.pdf" target="_blank" rel="noopener">
+                  Ver anexo completo ↗
+                </a>
+              </div>
+              <img id="figure-image" alt="" hidden />
+              <div id="vfr-reference" class="vfr-reference" hidden>
+                <strong>Referencia visual para esta pregunta</strong>
+                <div class="vfr-rule-grid">
+                  <span><b>0° a 179°</b><small>Nivel impar + 500 pies</small></span>
+                  <span><b>180° a 359°</b><small>Nivel par + 500 pies</small></span>
+                </div>
+                <small>Aplicable a vuelos VFR a 3000 pies o más de la superficie, según el material de teoría.</small>
+              </div>
+            </div>
+            <div id="options-list" class="options-list" role="radiogroup" aria-labelledby="quiz-question"></div>
+
+            <div id="feedback" class="feedback" hidden>
+              <div id="feedback-icon" class="feedback-icon" aria-hidden="true">✓</div>
+              <div>
+                <strong id="feedback-title">Respuesta correcta</strong>
+                <p id="feedback-text"></p>
+                <a id="figure-link" class="inline-link" href="figuras-ppa.pdf" target="_blank" rel="noopener" hidden>
+                  Abrir anexo de figuras oficiales →
+                </a>
+              </div>
+            </div>
+
+            <div class="question-actions">
+              <button id="check-button" class="primary-button" type="button" disabled>Comprobar respuesta</button>
+            </div>
+          </article>
+
+          <nav class="quiz-navigation" aria-label="Navegación de preguntas">
+            <button id="previous-button" class="secondary-button" type="button">← Anterior</button>
+            <span id="answered-label" class="answered-label">Respondé para continuar</span>
+            <button id="next-button" class="secondary-button" type="button">Siguiente →</button>
+          </nav>
+        </section>
+
+        <section id="result-view" class="view" hidden aria-labelledby="result-title">
+          <div class="result-hero">
+            <p class="eyebrow">Práctica terminada</p>
+            <h1 id="result-title">Buen trabajo.</h1>
+            <p id="result-summary" class="lead"></p>
+            <div id="result-badge" class="result-badge">Resultado</div>
+          </div>
+
+          <div class="result-stats">
+            <div><span>Correctas</span><strong id="result-correct">0</strong></div>
+            <div><span>Incorrectas</span><strong id="result-wrong">0</strong></div>
+            <div><span>Porcentaje</span><strong id="result-percent">0%</strong></div>
+          </div>
+
+          <div class="result-actions">
+            <button id="restart-button" class="primary-button" type="button">Repetir esta práctica</button>
+            <button id="new-practice-button" class="secondary-button" type="button">Elegir otra modalidad</button>
+          </div>
+
+          <div id="mistakes-section" class="mistakes-section" hidden>
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Para repasar</p>
+                <h2>Preguntas para volver a mirar</h2>
+              </div>
+              <span id="mistakes-count" class="pill"></span>
+            </div>
+            <div id="mistakes-list" class="mistakes-list"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Hecho para estudiar con material público de ANAC.</span>
+        <a href="https://www.argentina.gob.ar/anac/personal-aeronautico/examenes/ppa-piloto-privado-de-avion" target="_blank" rel="noopener">
+          Ver fuente oficial en Argentina.gob.ar ↗
+        </a>
+      </footer>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

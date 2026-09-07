@@ -1,0 +1,9 @@
+# Archivos de trabajo y renderizados intermedios
+tmp-render/
+figure-assets/page-*.png
+figure-assets/fig-01-01.png
+figure_questions.txt
+scripts/__pycache__/
+
+# PDF auxiliar usado solo para construir la base de preguntas
+preguntas-raac-61-105.pdf
