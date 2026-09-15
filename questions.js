@@ -314,7 +314,7 @@ window.PPA_QUESTIONS = [
     "chapter": 1,
     "chapterName": "AERODINÁMICA BÁSICA",
     "number": 18,
-    "question": "(Referirse a la Figura 2) Si un avión pesa 1540 kg , ¿q ué peso aproximado deberá soportar su estructura durante un viraje con 30° de inclinación manteniendo la altitud?",
+    "question": "(Referirse a la Figura 2) Si un avión pesa 1540 kg, ¿qué peso aproximado deberá soportar su estructura durante un viraje con 30° de inclinación manteniendo la altitud?",
     "options": [
       "1294 kg.",
       "1588 kg.",
@@ -334,17 +334,19 @@ window.PPA_QUESTIONS = [
     "chapter": 1,
     "chapterName": "AERODINÁMICA BÁSICA",
     "number": 19,
-    "question": "(Referirse a la Fig ura 2) Si un avión pesa 2200 kg, ¿qué peso aproximado deberá soportar su estructura durante un viraje con 45° de inclinación?",
+    "question": "(Referirse a la Figura 2) Si un avión pesa 2200 kg, ¿qué peso aproximado deberá soportar su estructura durante un viraje con 45° de inclinación?",
     "options": [
       "2200 kg.",
       "3100 kg.",
       "3300 kg."
     ],
     "correct": 2,
-    "hasFigure": false,
-    "figureRefs": [],
-    "figureAsset": null,
-    "figurePage": null,
+    "hasFigure": true,
+    "figureRefs": [
+      "2"
+    ],
+    "figureAsset": "figure-assets/fig-02.png",
+    "figurePage": 1,
     "answerSource": "ANAC · banco RAAC 61.105 (coincidencia)"
   },
   {
@@ -1094,7 +1096,7 @@ window.PPA_QUESTIONS = [
     "chapter": 2,
     "chapterName": "GRUPO MOTOPROPULSOR",
     "number": 21,
-    "question": "Si el grado de combustibl e que se utiliza en un motor de aeronave es menor al especificado para el motor, lo más probable es que cause:",
+    "question": "Si el grado de combustible que se utiliza en un motor de aeronave es menor al especificado para el motor, lo más probable es que cause:",
     "options": [
       "Una mezcla de combustible y aire que no es uniforme en todos los cilindros.",
       "Temperaturas más bajas de la cabeza de cilindro.",
@@ -1188,7 +1190,7 @@ window.PPA_QUESTIONS = [
     "options": [
       "Forzará al agua existente a que suba al tope del tanque, lejos de las líneas de combustibles al motor.",
       "Prevendrá la expansión del combustible al eliminar espacio de aire en los tanques.",
-      "Prevendrá la condensación de humedad al eliminar espacio de aire en l os tanques."
+      "Prevendrá la condensación de humedad al eliminar espacio de aire en los tanques."
     ],
     "correct": 2,
     "hasFigure": false,
@@ -1746,7 +1748,7 @@ window.PPA_QUESTIONS = [
     "chapter": 3,
     "chapterName": "INSTRUMENTOS DE VUELO",
     "number": 11,
-    "question": "(Referirse a la Figura 4) ¿Cuá l es el rango de velocidades para volar con máximo flaps?",
+    "question": "(Referirse a la Figura 4) ¿Cuál es el rango de velocidades para volar con máximo flaps?",
     "options": [
       "60 a 100 MPH.",
       "60 a 208 MPH",
@@ -2533,7 +2535,7 @@ window.PPA_QUESTIONS = [
     "question": "¿Qué documentos deben estar en posesión del piloto o accesible en el avión mientras opera la aeronave como piloto al mando?",
     "options": [
       "Licencia de piloto, certificación médica aeronáutica y certificación de horas voladas en los últimos 30 días.",
-      "Licencia de piloto, h abilitación psicofisiológica, documento de identidad, libro de vuelo actualizado y autorización del propietario de la aeronave para actuar como comandante de la aeronave.",
+      "Licencia de piloto, habilitación psicofisiológica, documento de identidad, libro de vuelo actualizado y autorización del propietario de la aeronave para actuar como comandante de la aeronave.",
       "Licencia de piloto, habilitación psicofisiológica y certificado de propiedad de la aeronave."
     ],
     "correct": 1,
@@ -2605,7 +2607,7 @@ window.PPA_QUESTIONS = [
     "question": "Con respecto a los pasajeros, ¿qué obligación tiene el piloto al mando relacionado con el uso de los cinturones de seguridad?",
     "options": [
       "El piloto al mando debe instruir a sus pasajeros para que mantengan permanentemente el cinturón de seguridad colocado.",
-      "El piloto al mando debe instruir a sus pasajeros sobre e l uso del cinturón de seguridad y notificarles que deben usarlo durante las operaciones de rodaje, despegue y aterrizaje.",
+      "El piloto al mando debe instruir a sus pasajeros sobre el uso del cinturón de seguridad y notificarles que deben usarlo durante las operaciones de rodaje, despegue y aterrizaje.",
       "El piloto al mando no tiene obligación respecto al uso del cinturón de seguridad por parte de los pasajeros."
     ],
     "correct": 1,
@@ -2745,7 +2747,7 @@ window.PPA_QUESTIONS = [
     "chapter": 4,
     "chapterName": "REGULACIONES",
     "number": 25,
-    "question": "Excepto cuando sea necesario para el despegue o aterrizaje, ¿ cuál es la altitu d mínima de seguridad requerida para un piloto que vuela sobre áreas congestionadas?",
+    "question": "Excepto cuando sea necesario para el despegue o aterrizaje, ¿cuál es la altitud mínima de seguridad requerida para un piloto que vuela sobre áreas congestionadas?",
     "options": [
       "1000 pies sobre cualquier persona.",
       "Una altitud de 500 pies sobre el punto más alto en un radio de 300 metros de la aeronave.",
@@ -4227,7 +4229,7 @@ window.PPA_QUESTIONS = [
       "Ángulo de ataque constante.",
       "Actitud de vuelo nivelado."
     ],
-    "correct": 1,
+    "correct": 2,
     "hasFigure": false,
     "figureRefs": [],
     "figureAsset": null,
@@ -4625,7 +4627,7 @@ window.PPA_QUESTIONS = [
     "chapter": 7,
     "chapterName": "PERFORMANCE",
     "number": 13,
-    "question": "(Refiérase a la Figura 8 ) Determine la a ltitud de presión con una altitud indicada de 1380 pies MSL con una configuración de altímetro de 28.22 a temperatura estándar:",
+    "question": "(Refiérase a la Figura 8) Determine la altitud de presión con una altitud indicada de 1380 pies MSL con una configuración de altímetro de 28.22 a temperatura estándar:",
     "options": [
       "2991 pies MSL.",
       "2913 pies MSL.",
@@ -4781,7 +4783,7 @@ window.PPA_QUESTIONS = [
     "chapter": 7,
     "chapterName": "PERFORMANCE",
     "number": 21,
-    "question": "(Refiérase a la Figura 37) Con viento del norte informado a 20 nudo s, ¿cuál pista (6, 29 o 32) es aceptable para utilizar para un avión con un componente de viento cruzado máximo de 13 nudos?",
+    "question": "(Refiérase a la Figura 37) Con viento del norte informado a 20 nudos, ¿cuál pista (6, 29 o 32) es aceptable para utilizar para un avión con un componente de viento cruzado máximo de 13 nudos?",
     "options": [
       "Pista 6.",
       "Pista 29.",
@@ -5127,7 +5129,7 @@ window.PPA_QUESTIONS = [
     "chapter": 8,
     "chapterName": "NAVEGACIÓN",
     "number": 18,
-    "question": "¿Cuál es el consumo de una aeronave si en 111 minutos de vuelo c onsume 30 litros de combustible?",
+    "question": "¿Cuál es el consumo de una aeronave si en 111 minutos de vuelo consume 30 litros de combustible?",
     "options": [
       "19 litros.",
       "16,2 litros.",
@@ -5289,7 +5291,7 @@ window.PPA_QUESTIONS = [
     "chapter": 8,
     "chapterName": "NAVEGACIÓN",
     "number": 27,
-    "question": "Si en una c arta aeronáutica se traza un curso de 041° y la línea isogónica del lugar muestra 5° E, el curso magnético será:",
+    "question": "Si en una carta aeronáutica se traza un curso de 041° y la línea isogónica del lugar muestra 5° E, el curso magnético será:",
     "options": [
       "041°.",
       "046°.",
@@ -5379,7 +5381,7 @@ window.PPA_QUESTIONS = [
     "chapter": 8,
     "chapterName": "NAVEGACIÓN",
     "number": 32,
-    "question": "Dados los siguientes datos: Viento 200/40, curso verdadero 130°, velocidad indicada 120 nudos. Determinar el ángulo de corrección de viento, el r umbo verdadero y la velocidad terrestre:",
+    "question": "Dados los siguientes datos: Viento 200/40, curso verdadero 130°, velocidad indicada 120 nudos. Determinar el ángulo de corrección de viento, el rumbo verdadero y la velocidad terrestre:",
     "options": [
       "18° a la derecha - 111° - 100 nudos.",
       "18° a la derecha - 148° - 100 nudos.",
@@ -5397,7 +5399,7 @@ window.PPA_QUESTIONS = [
     "chapter": 8,
     "chapterName": "NAVEGACIÓN",
     "number": 33,
-    "question": "Dados los siguientes datos: v iento 260/40, curso verdadero 290° , TAS: 235 nudos, declinación 0°. Determinar velocidad terrestre (GS) y rumbo:",
+    "question": "Dados los siguientes datos: viento 260/40, curso verdadero 290°, TAS: 235 nudos, declinación 0°. Determinar velocidad terrestre (GS) y rumbo:",
     "options": [
       "200 nudos – 280°.",
       "205 nudos – 280°.",
@@ -5415,7 +5417,7 @@ window.PPA_QUESTIONS = [
     "chapter": 8,
     "chapterName": "NAVEGACIÓN",
     "number": 34,
-    "question": "Dados los siguientes datos: v elocidad aérea verdadera (TAS) 250 nudos , curso verdadero 145°, viento 210/20, declinación 10° E. Determinar el rumbo magnético y la velocidad terrestre (GS):",
+    "question": "Dados los siguientes datos: velocidad aérea verdadera (TAS) 250 nudos, curso verdadero 145°, viento 210/20, declinación 10° E. Determinar el rumbo magnético y la velocidad terrestre (GS):",
     "options": [
       "139° - 241 nudos.",
       "145° - 245 nudos.",

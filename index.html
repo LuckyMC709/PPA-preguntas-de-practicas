@@ -4,24 +4,183 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b1f33" />
-    <title>PPA · Banco de preguntas ANAC</title>
+    <meta name="description" content="Centro de estudio del Aeroclub La Rioja: preguntas PPA, teoría ANAC y material del Piper PA-28." />
+    <title>Aeroclub La Rioja · Centro de estudio</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="site-shell">
       <header class="topbar">
-        <a class="brand" href="#inicio" aria-label="Volver al inicio">
+        <a class="brand" href="#home-view" aria-label="Volver al inicio">
           <span class="brand-mark">✦</span>
           <span>
-            <strong>PPA</strong>
-            <small>Banco de estudio</small>
+            <strong>AEROCLUB</strong>
+            <small>La Rioja · Estudio</small>
           </span>
         </a>
-        <div class="topbar-note">Piloto Privado de Avión · Argentina</div>
+        <div class="topbar-note">PPA · PA-28 · Documentación de vuelo</div>
+        <button id="menu-toggle" class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Abrir menú">
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+        </button>
+        <nav id="site-menu" class="site-menu" hidden aria-label="Navegación principal">
+          <p class="site-menu-heading">Ir a</p>
+          <a href="#home-view" data-nav="home">Inicio</a>
+          <a href="#setup-view" data-nav="ppa">Preguntas PPA · ANAC</a>
+          <a href="#aircraft-view" data-nav="aircraft">Estudio del PA-28</a>
+          <a href="#theory-view" data-nav="theory">Material teórico · ANAC</a>
+          <a href="#aircraft-material-view" data-nav="aircraft-material">Material teórico LV-LLS</a>
+        </nav>
       </header>
 
       <main id="app" tabindex="-1">
-        <section id="setup-view" class="view" aria-labelledby="setup-title">
+        <section id="home-view" class="view home-view" aria-labelledby="home-title">
+          <div class="home-hero">
+            <div>
+              <p class="eyebrow">Aeroclub La Rioja · centro de estudio</p>
+              <h1 id="home-title" tabindex="-1">Todo lo que necesitás para preparar tu vuelo.</h1>
+              <p class="lead">
+                Elegí un área para practicar el banco de preguntas PPA o repasar el Piper PA-28,
+                sus checklists, emergencias y documentación operativa.
+              </p>
+              <div class="quick-facts" aria-label="Contenido disponible">
+                <span><b>4</b> áreas de estudio</span>
+                <span><b>13</b> documentos y ayudas</span>
+                <span><b>PA-28</b> LV-LLS</span>
+              </div>
+            </div>
+            <div class="home-emblem" aria-hidden="true">
+              <span class="home-emblem-mark">✦</span>
+              <strong>AR</strong>
+              <small>VOLAR · ESTUDIAR · CUIDAR</small>
+            </div>
+          </div>
+
+          <div class="area-grid">
+            <article class="area-card area-card-ppa">
+              <div class="area-card-top">
+                <span class="area-icon" aria-hidden="true">▦</span>
+                <span class="area-label">PPA · ANAC</span>
+              </div>
+              <h2>Preguntas de examen</h2>
+              <p>Las 313 preguntas del banco público, con capítulos, corrección inmediata y simulacro.</p>
+              <button id="ppa-area-button" class="primary-button" type="button">Ir a preguntas <span aria-hidden="true">→</span></button>
+            </article>
+
+            <article class="area-card area-card-aircraft">
+              <div class="area-card-top">
+                <span class="area-icon" aria-hidden="true">✈</span>
+                <span class="area-label">AERONAVE · AEROCLUB</span>
+              </div>
+              <h2>Estudio del PA-28</h2>
+              <p>Material a mano y repasos interactivos de operación normal, emergencias y referencias.</p>
+              <button id="aircraft-area-button" class="primary-button" type="button">Estudiar el avión <span aria-hidden="true">→</span></button>
+            </article>
+
+            <article class="area-card area-card-theory">
+              <div class="area-card-top">
+                <span class="area-icon" aria-hidden="true">▤</span>
+                <span class="area-label">TEORÍA · ANAC</span>
+              </div>
+              <h2>Material teórico</h2>
+              <p>Teoría, análisis y figuras oficiales para acompañar el estudio del examen PPA.</p>
+              <button id="theory-area-button" class="primary-button" type="button">Ver material teórico <span aria-hidden="true">→</span></button>
+            </article>
+
+            <article class="area-card area-card-aircraft-material">
+              <div class="area-card-top">
+                <span class="area-icon" aria-hidden="true">▧</span>
+                <span class="area-label">TEORÍA · LV-LLS</span>
+              </div>
+              <h2>Material teórico LV-LLS</h2>
+              <p>Todo el material específico del Cherokee: briefing, emergencias, checklists y referencias.</p>
+              <button id="aircraft-material-area-button" class="primary-button" type="button">Abrir material del avión <span aria-hidden="true">→</span></button>
+            </article>
+          </div>
+
+          <aside class="home-note">
+            <strong>Nota de seguridad</strong>
+            <p>
+              Estos apuntes sirven para estudiar y consultar. No reemplazan el POH/AFM, la checklist vigente,
+              NOTAM ni la instrucción de un instructor habilitado.
+            </p>
+          </aside>
+        </section>
+
+        <section id="theory-view" class="view theory-view" hidden aria-labelledby="theory-title">
+          <button id="theory-home-button" class="back-link" type="button">← Inicio</button>
+          <div class="theory-hero">
+            <div>
+              <p class="eyebrow">Material teórico · ANAC / PPA</p>
+              <h1 id="theory-title" tabindex="-1">La teoría, en un solo lugar.</h1>
+              <p class="lead">
+                Consultá los documentos oficiales que acompañan al banco de preguntas y usalos para entender el porqué de cada respuesta.
+              </p>
+              <div class="quick-facts" aria-label="Material teórico disponible">
+                <span><b>4</b> documentos publicados</span>
+                <span><b>8</b> capítulos de preguntas</span>
+                <span><b>100%</b> separado del PA-28</span>
+              </div>
+            </div>
+            <div class="theory-mark" aria-hidden="true">
+              <span>ANAC</span>
+              <strong>PPA</strong>
+              <small>TEORÍA OFICIAL</small>
+            </div>
+          </div>
+
+          <aside class="theory-scope">
+            <strong>Este apartado es independiente</strong>
+            <p>
+              Acá está el material general de PPA/ANAC. Los procedimientos, checklists y formularios del Piper PA-28 se encuentran únicamente en “Estudio del PA-28”.
+            </p>
+          </aside>
+
+          <section class="study-section theory-library" aria-labelledby="theory-library-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Biblioteca ANAC</p>
+                <h2 id="theory-library-title">Documentos para estudiar</h2>
+              </div>
+              <span class="setup-step">Material oficial</span>
+            </div>
+            <div class="theory-card-grid">
+              <article class="theory-card">
+                <span class="theory-card-icon">01</span>
+                <h3>Teoría y análisis</h3>
+                <p>Documento de referencia para ampliar conceptos y comprender el banco de preguntas PPA.</p>
+                <a class="secondary-button" href="teoria-ppa.pdf" target="_blank" rel="noopener">Abrir teoría ↗</a>
+              </article>
+              <article class="theory-card">
+                <span class="theory-card-icon">02</span>
+                <h3>Banco de preguntas</h3>
+                <p>PDF original de ANAC, además del formulario interactivo de preguntas disponible en la sección PPA.</p>
+                <a class="secondary-button" href="preguntas-ppa.pdf" target="_blank" rel="noopener">Abrir preguntas ↗</a>
+              </article>
+              <article class="theory-card">
+                <span class="theory-card-icon">03</span>
+                <h3>Anexo de figuras</h3>
+                <p>Figuras oficiales vinculadas a las preguntas que necesitan una referencia visual.</p>
+                <a class="secondary-button" href="figuras-ppa.pdf" target="_blank" rel="noopener">Abrir figuras ↗</a>
+              </article>
+              <article class="theory-card theory-card-reference">
+                <span class="theory-card-icon">04</span>
+                <h3>Banco RAAC 61.105</h3>
+                <p>Referencia complementaria publicada por ANAC. Puede corresponder a otra edición: priorizá la teoría vigente.</p>
+                <a class="secondary-button" href="https://www.argentina.gob.ar/sites/default/files/2021/05/preguntas-segun-raac-61-105.pdf" target="_blank" rel="noopener">Abrir referencia ↗</a>
+              </article>
+            </div>
+          </section>
+
+          <aside class="home-note theory-note">
+            <strong>Cómo usarlo</strong>
+            <p>Leé un tema, practicá el banco PPA y volvé al documento cuando una respuesta necesite más contexto. Para el material de vuelo del aeroclub, cambiá al área PA-28.</p>
+          </aside>
+        </section>
+
+        <section id="setup-view" class="view" hidden aria-labelledby="setup-title">
+          <button id="ppa-home-button" class="back-link" type="button">← Inicio</button>
           <div class="intro-grid">
             <div class="intro-copy">
               <p class="eyebrow">Prepará tu examen con calma</p>
@@ -121,18 +280,202 @@
           <aside class="source-card">
             <div class="source-badge">ANAC</div>
             <div>
-              <strong>Material público de estudio</strong>
+              <strong>Banco PPA publicado por ANAC</strong>
               <p>
-                La página usa el banco de preguntas, la teoría y las figuras publicadas por ANAC.
-                Podés abrir los documentos originales cuando quieras.
+                Verificado contra los tres documentos enlazados en la página oficial de PPA de ANAC.
+                El examen teórico informado por ANAC utiliza 100 preguntas aleatorias y se aprueba con 75%.
               </p>
               <div class="source-links">
                 <a href="preguntas-ppa.pdf" target="_blank" rel="noopener">Banco de preguntas</a>
                 <a href="teoria-ppa.pdf" target="_blank" rel="noopener">Teoría y análisis</a>
                 <a href="figuras-ppa.pdf" target="_blank" rel="noopener">Anexo de figuras</a>
+                <a href="https://www.argentina.gob.ar/node/256334" target="_blank" rel="noopener">Página PPA de ANAC ↗</a>
+                <a href="https://www.argentina.gob.ar/node/256325" target="_blank" rel="noopener">Cómo es el examen ↗</a>
               </div>
             </div>
           </aside>
+        </section>
+
+        <section id="aircraft-view" class="view aircraft-view" hidden aria-labelledby="aircraft-title">
+          <div class="aircraft-hero">
+            <div>
+              <button id="aircraft-home-button" class="back-link" type="button">← Inicio</button>
+              <p class="eyebrow">Área de aeronave · material del aeroclub</p>
+              <h1 id="aircraft-title" tabindex="-1">Piper PA-28 Cherokee 140</h1>
+              <p class="lead">
+                Documentación de estudio y consulta rápida para el LV-LLS, separada del banco de preguntas PPA.
+              </p>
+              <div class="aircraft-badges">
+                <span class="pill">LV-LLS</span>
+                <span class="pill">Aeroclub La Rioja</span>
+                <span class="pill">Uso interno</span>
+              </div>
+            </div>
+            <div class="aircraft-mark" aria-hidden="true">PA<br /><small>28</small></div>
+          </div>
+
+          <aside class="safety-callout">
+            <strong>Antes de usar este material</strong>
+            <p>
+              Verificá siempre la versión vigente con el instructor y la documentación oficial de la aeronave.
+              En una emergencia real: volá el avión, aplicá el procedimiento vigente y comunicá.
+            </p>
+          </aside>
+
+          <div id="aircraft-library">
+            <section class="study-section" aria-labelledby="review-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Formulario de repaso</p>
+                  <h2 id="review-title">Practicá el avión</h2>
+                </div>
+                <span class="setup-step">Respuestas con explicación</span>
+              </div>
+              <div class="review-grid">
+                <article class="review-card">
+                  <span class="review-number">01</span>
+                  <h3>Repaso mixto</h3>
+                  <p>Un recorrido de 10 preguntas sobre operación normal, emergencias y referencias.</p>
+                  <button class="secondary-button review-start" data-topic="all" type="button">Empezar repaso</button>
+                </article>
+                <article class="review-card">
+                  <span class="review-number">02</span>
+                  <h3>Checklist normal</h3>
+                  <p>Cabina, puesta en marcha, motor, despegue, crucero, aterrizaje y parada.</p>
+                  <button class="secondary-button review-start" data-topic="normal" type="button">Repasar checklist</button>
+                </article>
+                <article class="review-card">
+                  <span class="review-number">03</span>
+                  <h3>Emergencias</h3>
+                  <p>Falla de motor, fuego, pérdida de presión, falla eléctrica, barrena y puerta abierta.</p>
+                  <button class="secondary-button review-start" data-topic="emergency" type="button">Repasar emergencias</button>
+                </article>
+                <article class="review-card">
+                  <span class="review-number">04</span>
+                  <h3>Referencias rápidas</h3>
+                  <p>Velocidades del briefing, transponder, frecuencias y conversión de presión.</p>
+                  <button class="secondary-button review-start" data-topic="reference" type="button">Repasar referencias</button>
+                </article>
+              </div>
+            </section>
+
+          </div>
+
+          <section id="aircraft-quiz-panel" class="aircraft-quiz-panel" hidden aria-labelledby="aircraft-question">
+            <div class="quiz-header">
+              <div>
+                <button id="aircraft-library-button" class="text-button" type="button">← Biblioteca PA-28</button>
+                <div class="quiz-meta">
+                  <span id="aircraft-topic-label" class="pill">Repaso mixto</span>
+                  <span id="aircraft-source-label" class="muted-label">Material del aeroclub</span>
+                </div>
+              </div>
+              <div class="score-box">
+                <span>Correctas</span>
+                <strong id="aircraft-live-score">0 / 0</strong>
+              </div>
+            </div>
+            <div class="progress-row">
+              <span id="aircraft-progress-label">Pregunta 1 de 10</span>
+              <span id="aircraft-progress-percent">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true"><div id="aircraft-progress-bar" class="progress-bar"></div></div>
+            <article class="question-card aircraft-question-card">
+              <div class="question-heading">
+                <span id="aircraft-question-number" class="question-number">Repaso 1</span>
+              </div>
+              <h2 id="aircraft-question" tabindex="-1">Cargando pregunta…</h2>
+              <p id="aircraft-question-source" class="question-source"></p>
+              <div id="aircraft-options" class="options-list" role="radiogroup" aria-labelledby="aircraft-question"></div>
+              <div id="aircraft-feedback" class="feedback" hidden>
+                <div id="aircraft-feedback-icon" class="feedback-icon" aria-hidden="true">✓</div>
+                <div>
+                  <strong id="aircraft-feedback-title">Respuesta correcta</strong>
+                  <p id="aircraft-feedback-text"></p>
+                </div>
+              </div>
+              <div class="question-actions">
+                <button id="aircraft-check-button" class="primary-button" type="button" disabled>Comprobar respuesta</button>
+              </div>
+            </article>
+            <nav class="quiz-navigation" aria-label="Navegación del repaso PA-28">
+              <button id="aircraft-previous-button" class="secondary-button" type="button">← Anterior</button>
+              <span id="aircraft-answered-label" class="answered-label">Respondé para continuar</span>
+              <button id="aircraft-next-button" class="secondary-button" type="button">Siguiente →</button>
+            </nav>
+          </section>
+
+          <section id="aircraft-result-panel" class="aircraft-result-panel" hidden aria-labelledby="aircraft-result-title">
+            <div class="result-hero">
+              <p class="eyebrow">Repaso terminado</p>
+              <h2 id="aircraft-result-title">Buen trabajo.</h2>
+              <p id="aircraft-result-summary" class="lead"></p>
+              <div id="aircraft-result-badge" class="result-badge">Resultado</div>
+            </div>
+            <div class="result-stats">
+              <div><span>Correctas</span><strong id="aircraft-result-correct">0</strong></div>
+              <div><span>Incorrectas</span><strong id="aircraft-result-wrong">0</strong></div>
+              <div><span>Porcentaje</span><strong id="aircraft-result-percent">0%</strong></div>
+            </div>
+            <div class="result-actions">
+              <button id="aircraft-restart-button" class="primary-button" type="button">Repetir este repaso</button>
+              <button id="aircraft-new-review-button" class="secondary-button" type="button">Elegir otro repaso</button>
+            </div>
+            <div id="aircraft-mistakes-section" class="mistakes-section" hidden>
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Para volver a mirar</p>
+                  <h3>Respuestas a repasar</h3>
+                </div>
+                <span id="aircraft-mistakes-count" class="pill"></span>
+              </div>
+              <div id="aircraft-mistakes-list" class="mistakes-list"></div>
+            </div>
+          </section>
+        </section>
+
+        <section id="aircraft-material-view" class="view aircraft-material-view" hidden aria-labelledby="aircraft-material-title">
+          <button id="aircraft-material-aircraft-button" class="back-link" type="button">← Estudio del PA-28</button>
+          <div class="aircraft-material-hero">
+            <div>
+              <p class="eyebrow">Material teórico · aeronave del aeroclub</p>
+              <h1 id="aircraft-material-title" tabindex="-1">Todo el LV-LLS, a mano.</h1>
+              <p class="lead">
+                Consultá el material específico del Piper PA-28 Cherokee 140 del Aeroclub La Rioja: briefing, procedimientos normales, emergencias y referencias rápidas.
+              </p>
+              <div class="aircraft-badges">
+                <span class="pill">LV-LLS</span>
+                <span class="pill">SANL</span>
+                <span class="pill">Separado de ANAC</span>
+              </div>
+            </div>
+            <div class="aircraft-material-mark" aria-hidden="true">
+              <strong>LV</strong>
+              <span>LLS</span>
+              <small>PA-28 · SANL</small>
+            </div>
+          </div>
+
+          <aside class="safety-callout aircraft-material-safety">
+            <strong>Material de estudio y consulta</strong>
+            <p>
+              Confirmá siempre la versión vigente con el instructor y el POH/AFM. Los planes de vuelo están marcados como internos porque contienen datos personales y operativos.
+            </p>
+          </aside>
+
+          <section class="study-section material-section" aria-labelledby="material-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Biblioteca del avión</p>
+                <h2 id="material-title">Briefing, emergencias y documentación</h2>
+              </div>
+              <span class="setup-step">13 archivos</span>
+            </div>
+            <p class="section-intro">
+              Abrí los originales cuando necesites consultar el detalle completo. El formulario de repaso del PA-28 está en el apartado “Estudio del PA-28”.
+            </p>
+            <div id="material-library" class="material-library"></div>
+          </section>
         </section>
 
         <section id="quiz-view" class="view" hidden aria-labelledby="quiz-question">
@@ -237,7 +580,7 @@
       </main>
 
       <footer class="footer">
-        <span>Hecho para estudiar con material público de ANAC.</span>
+        <span>Centro de estudio del Aeroclub La Rioja · ANAC y PA-28.</span>
         <a href="https://www.argentina.gob.ar/anac/personal-aeronautico/examenes/ppa-piloto-privado-de-avion" target="_blank" rel="noopener">
           Ver fuente oficial en Argentina.gob.ar ↗
         </a>
@@ -245,6 +588,8 @@
     </div>
 
     <script src="questions.js"></script>
+    <script src="aircraft-data.js"></script>
     <script src="app.js"></script>
+    <script src="aircraft.js"></script>
   </body>
 </html>

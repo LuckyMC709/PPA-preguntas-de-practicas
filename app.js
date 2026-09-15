@@ -3,11 +3,17 @@
 
   const questions = Array.isArray(window.PPA_QUESTIONS) ? window.PPA_QUESTIONS : [];
   const letters = ["A", "B", "C", "D"];
+  const homeView = document.querySelector("#home-view");
   const chapterSelect = document.querySelector("#chapter-select");
   const configForm = document.querySelector("#config-form");
   const setupView = document.querySelector("#setup-view");
   const quizView = document.querySelector("#quiz-view");
   const resultView = document.querySelector("#result-view");
+  const aircraftView = document.querySelector("#aircraft-view");
+  const theoryView = document.querySelector("#theory-view");
+  const aircraftMaterialView = document.querySelector("#aircraft-material-view");
+  const menuToggle = document.querySelector("#menu-toggle");
+  const siteMenu = document.querySelector("#site-menu");
   const optionsList = document.querySelector("#options-list");
   const feedback = document.querySelector("#feedback");
   const feedbackIcon = document.querySelector("#feedback-icon");
@@ -41,10 +47,49 @@
     return result;
   }
 
+  function setMenuOpen(isOpen) {
+    if (!menuToggle || !siteMenu) return;
+    siteMenu.hidden = !isOpen;
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    menuToggle.classList.toggle("is-open", isOpen);
+  }
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
   function showView(view) {
-    [setupView, quizView, resultView].forEach((item) => { item.hidden = item !== view; });
+    [homeView, setupView, quizView, resultView, aircraftView, theoryView, aircraftMaterialView].forEach((item) => {
+      if (item) item.hidden = item !== view;
+    });
+    closeMenu();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  window.PPA_NAVIGATION = {
+    showHome() {
+      showView(homeView);
+      document.querySelector("#home-title")?.focus({ preventScroll: true });
+    },
+    showPpaSetup() {
+      showView(setupView);
+      document.querySelector("#setup-title")?.focus({ preventScroll: true });
+    },
+    showAircraft() {
+      showView(aircraftView);
+      window.PA28_NAVIGATION?.showLibrary();
+      document.querySelector("#aircraft-title")?.focus({ preventScroll: true });
+    },
+    showTheory() {
+      showView(theoryView);
+      document.querySelector("#theory-title")?.focus({ preventScroll: true });
+    },
+    showAircraftMaterial() {
+      showView(aircraftMaterialView);
+      document.querySelector("#aircraft-material-title")?.focus({ preventScroll: true });
+    },
+  };
 
   function currentQuestion() {
     return state.pool[state.index];
@@ -316,18 +361,52 @@
   }
 
   function goToSetup() {
-    showView(setupView);
-    document.querySelector("#setup-title").focus({ preventScroll: true });
+    window.PPA_NAVIGATION.showPpaSetup();
   }
 
   configForm.addEventListener("submit", startPractice);
   checkButton.addEventListener("click", checkAnswer);
   previousButton.addEventListener("click", () => moveQuestion(-1));
   nextButton.addEventListener("click", () => {
+    const question = currentQuestion();
+    if (!question || !state.answers.has(question.id)) {
+      answeredLabel.textContent = "Primero elegí y comprobá una respuesta";
+      return;
+    }
     if (state.index === state.pool.length - 1) showResults();
     else moveQuestion(1);
   });
   document.querySelector("#quit-button").addEventListener("click", goToSetup);
+  document.querySelector("#ppa-home-button").addEventListener("click", window.PPA_NAVIGATION.showHome);
+  document.querySelector("#ppa-area-button").addEventListener("click", window.PPA_NAVIGATION.showPpaSetup);
+  document.querySelector("#theory-area-button").addEventListener("click", window.PPA_NAVIGATION.showTheory);
+  document.querySelector("#aircraft-material-area-button").addEventListener("click", window.PPA_NAVIGATION.showAircraftMaterial);
+  document.querySelector("#theory-home-button").addEventListener("click", window.PPA_NAVIGATION.showHome);
+  document.querySelector("#aircraft-material-aircraft-button").addEventListener("click", window.PPA_NAVIGATION.showAircraft);
+  document.querySelector(".brand").addEventListener("click", (event) => {
+    event.preventDefault();
+    window.PPA_NAVIGATION.showHome();
+  });
+  menuToggle.addEventListener("click", () => setMenuOpen(siteMenu.hidden));
+  siteMenu.querySelectorAll("[data-nav]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const navigation = {
+        home: window.PPA_NAVIGATION.showHome,
+        ppa: window.PPA_NAVIGATION.showPpaSetup,
+        aircraft: window.PPA_NAVIGATION.showAircraft,
+        theory: window.PPA_NAVIGATION.showTheory,
+        "aircraft-material": window.PPA_NAVIGATION.showAircraftMaterial,
+      }[link.dataset.nav];
+      navigation?.();
+    });
+  });
+  document.addEventListener("click", (event) => {
+    if (!siteMenu.hidden && !event.target.closest(".topbar")) closeMenu();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
   document.querySelector("#restart-button").addEventListener("click", repeatPractice);
   document.querySelector("#new-practice-button").addEventListener("click", goToSetup);
   document.querySelectorAll('input[name="scope"], input[name="order"]').forEach((input) => input.addEventListener("change", updateSetupLabels));
