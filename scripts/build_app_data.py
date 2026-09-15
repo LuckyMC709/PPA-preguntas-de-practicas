@@ -20,7 +20,9 @@ BASE = Path(__file__).resolve().parents[1]
 
 
 # Answers that are not safely recoverable from a direct match with the older
-# RAAC 61.105 bank. Values are zero-based option indexes (0 = a, 1 = b, 2 = c).
+# RAAC 61.105 bank. That publication can belong to a different edition and
+# can conflict with the PPA theory PDF, so these values are kept as explicit
+# review decisions. Values are zero-based option indexes (0 = a, 1 = b, 2 = c).
 MANUAL_ANSWERS = {
     "anac-2-1": 2,
     "anac-2-2": 0,
@@ -96,7 +98,7 @@ MANUAL_ANSWERS = {
     "anac-5-39": 0,
     "anac-5-44": 0,
     "anac-6-19": 1,
-    "anac-6-31": 1,
+    "anac-6-31": 2,
     "anac-7-16": 1,
     "anac-8-14": 0,
     "anac-8-16": 2,
@@ -117,13 +119,37 @@ def figure_references(question: str) -> list[str]:
     return references
 
 
+def clean_extracted_text(value: str) -> str:
+    """Repair a small set of word splits introduced by PDF text extraction."""
+    replacements = {
+        "Fig ura": "Figura",
+        "q ué": "qué",
+        "combustibl e": "combustible",
+        "Cuá l": "Cuál",
+        "l os": "los",
+        "h abilitación": "habilitación",
+        "e l uso": "el uso",
+        "altitu d": "altitud",
+        "a ltitud": "altitud",
+        "nudo s": "nudos",
+        "c onsume": "consume",
+        "c arta": "carta",
+        "r umbo": "rumbo",
+        "v iento": "viento",
+        "v elocidad": "velocidad",
+    }
+    for source, replacement in replacements.items():
+        value = value.replace(source, replacement)
+    return re.sub(r"\s+([,.:;?])", r"\1", value)
+
+
 def clean_option(option: str) -> str:
     # A couple of page breaks in the official PDF place the next section title
     # at the end of the preceding answer choice.
     option = re.sub(r"\s+Procedimientos y operaciones de aeropuertos.*$", "", option, flags=re.IGNORECASE)
     option = re.sub(r"\s+Gráfico de Componentes de Viento de Frente y Viento Cruzado.*$", "", option, flags=re.IGNORECASE)
     option = re.sub(r"\s+d\)\s*$", "", option, flags=re.IGNORECASE)
-    return option.strip()
+    return clean_extracted_text(option.strip())
 
 
 FIGURE_ASSETS = {
@@ -206,8 +232,9 @@ def build() -> list[dict]:
     answers, provenance = answer_key(current, raac)
     output: list[dict] = []
     for question in current:
+        clean_question = clean_extracted_text(question["question"])
         options = [clean_option(option) for option in question["options"] if option.strip()]
-        refs = figure_references(question["question"])
+        refs = figure_references(clean_question)
         primary_ref = refs[0] if refs else None
         output.append(
             {
@@ -215,7 +242,7 @@ def build() -> list[dict]:
                 "chapter": question["chapter"],
                 "chapterName": question["chapterName"],
                 "number": question["number"],
-                "question": question["question"],
+                "question": clean_question,
                 "options": options,
                 "correct": answers[question["id"]],
                 "hasFigure": bool(refs),
