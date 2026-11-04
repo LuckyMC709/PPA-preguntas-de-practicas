@@ -1,0 +1,44 @@
+{
+  "anac-2-1": {
+    "correct": 1,
+    "theoryPage": 24,
+    "explanation": "El piloto competente debe estar en los controles de la cabina. Estar solamente en la cabina y colacionar no equivale a mantener el control de la operación.",
+    "answerRevision": 1
+  },
+  "anac-3-28": {
+    "correct": 2,
+    "theoryPage": 47,
+    "explanation": "Al pasar de baja a alta presión sin reajustar, la altitud real es mayor que la indicada: el altímetro indica menos. En el sentido inverso indica de más.",
+    "answerRevision": 1
+  },
+  "anac-3-36": {
+    "correct": 2,
+    "theoryPage": 49,
+    "explanation": "En vuelo recto y nivelado se ajusta el símbolo del avión para alinearlo con la barra del horizonte. El elemento ajustable es el avión en miniatura.",
+    "answerRevision": 1
+  },
+  "anac-4-18": {
+    "correct": 0,
+    "theoryPage": 56,
+    "explanation": "El análisis de esta pregunta exige el uso de cinturón durante el movimiento en superficie, despegue y aterrizaje. Esa es la opción que corresponde al requisito preguntado.",
+    "answerRevision": 1
+  },
+  "anac-7-5": {
+    "correct": 2,
+    "theoryPage": 98,
+    "explanation": "La corrección del ajuste 29,25 suma unos 626 pies: la altitud de presión es aproximadamente 5876 pies. Al entrar al gráfico con 81 °F, la altitud de densidad es 8500 pies; 5877 confunde presión con densidad.",
+    "answerRevision": 1
+  },
+  "anac-7-7": {
+    "correct": 0,
+    "theoryPage": 100,
+    "explanation": "El ajuste 30,35 da una corrección de −394 pies: 3894 − 394 = 3500 pies de altitud de presión. Con 25 °F, el gráfico indica 2000 pies de altitud de densidad.",
+    "answerRevision": 1
+  },
+  "anac-7-19": {
+    "correct": 2,
+    "theoryPage": 104,
+    "explanation": "En el gráfico, la componente cruzada de 25 nudos a 45° corresponde a unos 35 nudos de viento total. Comprobación: 25 / sen(45°) ≈ 35,4 nudos.",
+    "answerRevision": 1
+  }
+}
