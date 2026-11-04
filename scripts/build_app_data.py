@@ -17,6 +17,7 @@ from extract_ppa import (
 
 
 BASE = Path(__file__).resolve().parents[1]
+ANSWER_REVIEWS = json.loads((BASE / "scripts" / "answer_reviews.json").read_text(encoding="utf-8"))
 
 
 # Answers that are not safely recoverable from a direct match with the older
@@ -196,6 +197,11 @@ def answer_key(current: list[dict], raac: list[dict]) -> tuple[dict[str, int], d
     answers: dict[str, int] = {}
     provenance: dict[str, str] = {}
     for question in current:
+        if question["id"] in ANSWER_REVIEWS:
+            review = ANSWER_REVIEWS[question["id"]]
+            answers[question["id"]] = review["correct"]
+            provenance[question["id"]] = f"ANAC · teoría y análisis, página {review['theoryPage']} · clave revisada"
+            continue
         if question["id"] in MANUAL_ANSWERS:
             answers[question["id"]] = MANUAL_ANSWERS[question["id"]]
             provenance[question["id"]] = "ANAC · teoría y análisis / revisión manual"
@@ -250,6 +256,7 @@ def build() -> list[dict]:
                 "figureAsset": FIGURE_ASSETS.get(primary_ref),
                 "figurePage": FIGURE_PAGES.get(primary_ref),
                 "answerSource": provenance[question["id"]],
+                **{key: value for key, value in ANSWER_REVIEWS.get(question["id"], {}).items() if key != "correct"},
             }
         )
     return output

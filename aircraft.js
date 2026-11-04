@@ -146,9 +146,9 @@
     }
   }
 
-  function startReview(topic) {
+  function startReview(topic, repeatedPool = null) {
     const filtered = topic === "all" ? questions : questions.filter((question) => question.topic === topic);
-    state.pool = shuffle(filtered)
+    state.pool = repeatedPool ? [...repeatedPool] : shuffle(filtered)
       .slice(0, Math.min(10, filtered.length))
       .map((question, index) => ({ ...question, id: `pa28-${topic}-${index}` }));
     state.index = 0;
@@ -171,7 +171,7 @@
   function moveQuestion(direction) {
     const question = currentQuestion();
     if (!question) return;
-    if (!state.answers.has(question.id)) {
+    if (direction > 0 && !state.answers.has(question.id)) {
       answeredLabel.textContent = "Primero elegí y comprobá una respuesta";
       return;
     }
@@ -290,7 +290,7 @@
     if (state.index === state.pool.length - 1) showResults();
     else moveQuestion(1);
   });
-  document.querySelector("#aircraft-restart-button").addEventListener("click", () => startReview(state.topic));
+  document.querySelector("#aircraft-restart-button").addEventListener("click", () => startReview(state.topic, state.pool));
   document.querySelector("#aircraft-new-review-button").addEventListener("click", showLibrary);
 
   renderMaterial();

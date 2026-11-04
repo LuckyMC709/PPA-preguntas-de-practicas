@@ -437,3 +437,55 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 3px solid
   .area-grid, .review-grid, .material-grid { grid-template-columns: 1fr; }
   .review-card { min-height: 0; }
 }
+
+/* Study workspace */
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.skip-link { position: fixed; top: -100px; left: 16px; z-index: 100; padding: 12px; background: white; color: var(--ink); }
+.skip-link:focus { top: 12px; }
+.resume-strip { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; padding: 20px; border: 1px solid #bfd6e7; background: #eaf4fb; border-radius: 16px; }
+.resume-strip p { margin: 0; }
+.study-memory { margin-top: 28px; }
+.study-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.import-label { display: inline-flex; position: relative; align-items: center; cursor: pointer; overflow: hidden; }
+.import-label input { position: absolute; inset: 0; opacity: 0; width: 100%; cursor: pointer; }
+.import-label:focus-within { outline: 3px solid var(--blue); outline-offset: 3px; }
+#storage-status, #setup-message { margin: 12px 0 0; font-size: 13px; line-height: 1.6; }
+.chapter-progress { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.chapter-card { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.chapter-card h3 { margin: 0 0 10px; font-size: 14px; line-height: 1.5; }
+.chapter-card p { color: var(--muted); font-size: 13px; }
+.chapter-card progress { width: 100%; height: 10px; accent-color: var(--blue); display: block; margin-bottom: 12px; }
+.bank-browser { padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+.bank-browser label { display: block; font-size: 13px; margin-bottom: 10px; }
+#bank-search { width: 100%; padding: 14px; border: 1px solid #aabccc; border-radius: 9px; background: white; color: var(--ink); }
+#bank-count { color: var(--muted); font-size: 13px; margin: 12px 0; }
+.bank-results { display: grid; gap: 6px; max-height: 360px; overflow: auto; padding: 5px; }
+.bank-result { padding: 14px; text-align: left; color: var(--ink); background: var(--canvas); border: 1px solid var(--line); border-radius: 8px; line-height: 1.5; }
+.bank-result:hover { background: #eaf4fb; }
+.question-map { margin: 24px 0; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.question-map summary { cursor: pointer; font-weight: 700; padding: 6px; }
+.question-map p, .keyboard-help { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.question-map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 7px; max-height: 320px; overflow: auto; padding: 6px; }
+.map-button { min-height: 44px; border: 1px solid #aabccc; border-radius: 8px; background: white; color: var(--ink); }
+.map-button.is-answered { background: #e5f3ee; }
+.map-button[aria-current] { border: 3px solid var(--blue); font-weight: 800; }
+.finish-confirm { margin-top: 14px; padding: 20px; background: #fff5df; border-radius: 12px; }
+.question-heading { flex-wrap: wrap; gap: 10px; }
+#bookmark-button[aria-pressed="true"] { color: #825700; background: #fff5df; border-radius: 8px; }
+#answer-source { margin: 12px 0; font-size: 12px; line-height: 1.5; }
+#quiz-view .answered-label { display: block; }
+@media (max-width: 760px) {
+  .chapter-progress { grid-template-columns: 1fr; }
+  .resume-strip { flex-direction: column; align-items: stretch; }
+  #quiz-view .answered-label { grid-column: 1 / -1; grid-row: 2; text-align: center; }
+  .quiz-navigation { position: sticky; bottom: 0; z-index: 10; padding: 12px 0; background: var(--canvas); border-top: 1px solid var(--line); }
+  .keyboard-help { display: none; }
+  .bank-browser { padding: 18px; }
+  .finish-confirm button { margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+.choice-card:focus-within { outline: 3px solid var(--blue); outline-offset: 3px; }
+.choice-card:has(input:disabled) { opacity: .55; cursor: default; }

@@ -7,3 +7,6 @@ scripts/__pycache__/
 
 # PDF auxiliar usado solo para construir la base de preguntas
 preguntas-raac-61-105.pdf
+
+# Dependencias de pruebas; la página funciona sin ellas
+node_modules/

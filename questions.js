@@ -742,12 +742,15 @@ window.PPA_QUESTIONS = [
       "Se encuentre en los controles en la cabina.",
       "Se encuentre en la cabina y colacione las órdenes."
     ],
-    "correct": 2,
+    "correct": 1,
     "hasFigure": false,
     "figureRefs": [],
     "figureAsset": null,
     "figurePage": null,
-    "answerSource": "ANAC · teoría y análisis / revisión manual"
+    "answerSource": "ANAC · teoría y análisis, página 24 · clave revisada",
+    "theoryPage": 24,
+    "explanation": "El piloto competente debe estar en los controles de la cabina. Estar solamente en la cabina y colacionar no equivale a mantener el control de la operación.",
+    "answerRevision": 1
   },
   {
     "id": "anac-2-2",
@@ -2074,12 +2077,15 @@ window.PPA_QUESTIONS = [
       "Mayor altitud que la actual sobre el nivel del mar.",
       "Menor que la actual sobre el nivel del mar."
     ],
-    "correct": 1,
+    "correct": 2,
     "hasFigure": false,
     "figureRefs": [],
     "figureAsset": null,
     "figurePage": null,
-    "answerSource": "ANAC · banco RAAC 61.105"
+    "answerSource": "ANAC · teoría y análisis, página 47 · clave revisada",
+    "theoryPage": 47,
+    "explanation": "Al pasar de baja a alta presión sin reajustar, la altitud real es mayor que la indicada: el altímetro indica menos. En el sentido inverso indica de más.",
+    "answerRevision": 1
   },
   {
     "id": "anac-3-29",
@@ -2228,14 +2234,17 @@ window.PPA_QUESTIONS = [
       "La barra del horizonte artificial con el símbolo del avión.",
       "El símbolo del avión con la barra del horizonte artificial."
     ],
-    "correct": 1,
+    "correct": 2,
     "hasFigure": true,
     "figureRefs": [
       "7"
     ],
     "figureAsset": "figure-assets/fig-07.png",
     "figurePage": 4,
-    "answerSource": "ANAC · teoría y análisis / revisión manual"
+    "answerSource": "ANAC · teoría y análisis, página 49 · clave revisada",
+    "theoryPage": 49,
+    "explanation": "En vuelo recto y nivelado se ajusta el símbolo del avión para alinearlo con la barra del horizonte. El elemento ajustable es el avión en miniatura.",
+    "answerRevision": 1
   },
   {
     "id": "anac-3-37",
@@ -2628,12 +2637,15 @@ window.PPA_QUESTIONS = [
       "Durante todo el vuelo.",
       "El vuelo con turbulencia."
     ],
-    "correct": 1,
+    "correct": 0,
     "hasFigure": false,
     "figureRefs": [],
     "figureAsset": null,
     "figurePage": null,
-    "answerSource": "ANAC · banco RAAC 61.105"
+    "answerSource": "ANAC · teoría y análisis, página 56 · clave revisada",
+    "theoryPage": 56,
+    "explanation": "El análisis de esta pregunta exige el uso de cinturón durante el movimiento en superficie, despegue y aterrizaje. Esa es la opción que corresponde al requisito preguntado.",
+    "answerRevision": 1
   },
   {
     "id": "anac-4-19",
@@ -4481,14 +4493,17 @@ window.PPA_QUESTIONS = [
       "5877 pies MSL.",
       "8500 pies MSL."
     ],
-    "correct": 1,
+    "correct": 2,
     "hasFigure": true,
     "figureRefs": [
       "8"
     ],
     "figureAsset": "figure-assets/fig-08.png",
     "figurePage": 5,
-    "answerSource": "ANAC · banco RAAC 61.105"
+    "answerSource": "ANAC · teoría y análisis, página 98 · clave revisada",
+    "theoryPage": 98,
+    "explanation": "La corrección del ajuste 29,25 suma unos 626 pies: la altitud de presión es aproximadamente 5876 pies. Al entrar al gráfico con 81 °F, la altitud de densidad es 8500 pies; 5877 confunde presión con densidad.",
+    "answerRevision": 1
   },
   {
     "id": "anac-7-6",
@@ -4521,14 +4536,17 @@ window.PPA_QUESTIONS = [
       "2900 pies MSL.",
       "3500 pies MSL."
     ],
-    "correct": 2,
+    "correct": 0,
     "hasFigure": true,
     "figureRefs": [
       "8"
     ],
     "figureAsset": "figure-assets/fig-08.png",
     "figurePage": 5,
-    "answerSource": "ANAC · banco RAAC 61.105"
+    "answerSource": "ANAC · teoría y análisis, página 100 · clave revisada",
+    "theoryPage": 100,
+    "explanation": "El ajuste 30,35 da una corrección de −394 pies: 3894 − 394 = 3500 pies de altitud de presión. Con 25 °F, el gráfico indica 2000 pies de altitud de densidad.",
+    "answerRevision": 1
   },
   {
     "id": "anac-7-8",
@@ -4749,14 +4767,17 @@ window.PPA_QUESTIONS = [
       "29 nudos.",
       "35 nudos."
     ],
-    "correct": 0,
+    "correct": 2,
     "hasFigure": true,
     "figureRefs": [
       "37"
     ],
     "figureAsset": "figure-assets/fig-37.png",
     "figurePage": 14,
-    "answerSource": "ANAC · banco RAAC 61.105"
+    "answerSource": "ANAC · teoría y análisis, página 104 · clave revisada",
+    "theoryPage": 104,
+    "explanation": "En el gráfico, la componente cruzada de 25 nudos a 45° corresponde a unos 35 nudos de viento total. Comprobación: 25 / sen(45°) ≈ 35,4 nudos.",
+    "answerRevision": 1
   },
   {
     "id": "anac-7-20",

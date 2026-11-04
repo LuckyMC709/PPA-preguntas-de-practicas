@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#app">Saltar al contenido</a>
     <div class="site-shell">
       <header class="topbar">
         <a class="brand" href="#home-view" aria-label="Volver al inicio">
@@ -57,6 +58,7 @@
             </div>
           </div>
 
+          <div id="home-resume" class="resume-strip" hidden><p id="home-resume-summary"></p><button id="home-resume-button" class="primary-button" type="button">Retomar PPA →</button></div>
           <div class="area-grid">
             <article class="area-card area-card-ppa">
               <div class="area-card-top">
@@ -205,6 +207,30 @@
             </div>
           </div>
 
+          <section id="study-memory" class="study-memory" aria-label="Tu progreso de estudio">
+            <div class="memory-heading">
+              <div>
+                <p class="eyebrow">Tu progreso</p>
+                <h2>Seguí desde donde quedaste</h2>
+                <p id="memory-summary" class="memory-summary"></p>
+              </div>
+              <button id="resume-button" class="primary-button" type="button">Retomar práctica →</button>
+            </div>
+            <div class="memory-stats">
+              <div><strong id="memory-sessions">0</strong><span>prácticas terminadas</span></div>
+              <div><strong id="memory-simulations">0</strong><span>simulacros terminados</span></div>
+              <div><strong id="memory-seen">0</strong><span>preguntas practicadas</span></div>
+              <div><strong id="memory-review">0</strong><span>preguntas para repasar</span></div>
+            </div>
+            <p class="muted-label">Tus datos quedan en este navegador. Exportá una copia para llevarlos a otro dispositivo o antes de cambiar de dirección.</p>
+            <p class="key-update-note">Se revisaron 7 claves contra la teoría original. Si ya las habías practicado con la clave anterior, vuelven a “Mis errores” para repasarlas. El historial conserva los intentos anteriores.</p>
+            <div class="study-tools">
+              <button id="export-progress" class="secondary-button" type="button">Guardar copia del progreso</button>
+              <label class="secondary-button import-label">Restaurar copia<input id="import-progress" type="file" accept=".json,application/json" /></label>
+            </div>
+            <p id="storage-status" role="status"></p>
+          </section>
+
           <form id="config-form" class="setup-card">
             <div class="setup-card-heading">
               <div>
@@ -230,7 +256,7 @@
                   <span class="choice-icon">◴</span>
                   <span class="choice-content">
                     <strong>Simulacro ANAC</strong>
-                    <small>100 preguntas y referencia de aprobación al 75%.</small>
+                    <small>100 al azar, sin revelar respuestas hasta finalizar.</small>
                   </span>
                 </label>
                 <label class="choice-card">
@@ -241,6 +267,9 @@
                     <small>10 preguntas aleatorias para practicar un rato cada día.</small>
                   </span>
                 </label>
+                <label class="choice-card"><input type="radio" name="scope" value="review" /><span class="choice-icon">◇</span><span class="choice-content"><strong>Mis errores</strong><small>Errores pendientes y preguntas con clave actualizada.</small></span></label>
+                <label class="choice-card"><input type="radio" name="scope" value="unseen" /><span class="choice-icon">◇</span><span class="choice-content"><strong>Sin practicar</strong><small>Avanzá con preguntas que todavía no respondiste.</small></span></label>
+                <label class="choice-card"><input type="radio" name="scope" value="bookmarked" /><span class="choice-icon">◇</span><span class="choice-content"><strong>Mis marcadas</strong><small>Las preguntas que guardaste para volver a mirar.</small></span></label>
               </fieldset>
 
               <fieldset>
@@ -272,28 +301,23 @@
               <p id="chapter-help">Podés elegir un capítulo si querés repasar un tema puntual.</p>
             </div>
 
+            <p id="setup-message" role="status"></p>
             <button class="primary-button" type="submit">
               Empezar práctica <span aria-hidden="true">→</span>
             </button>
           </form>
 
-          <section id="study-memory" class="study-memory" aria-label="Tu progreso de estudio" hidden>
-            <div class="memory-heading">
-              <div>
-                <p class="eyebrow">Tu progreso</p>
-                <h2>Seguí desde donde quedaste</h2>
-                <p id="memory-summary" class="memory-summary"></p>
-              </div>
-              <button id="resume-button" class="primary-button" type="button">Retomar práctica →</button>
-            </div>
-            <div class="memory-stats">
-              <div><strong id="memory-sessions">0</strong><span>prácticas terminadas</span></div>
-              <div><strong id="memory-simulations">0</strong><span>simulacros terminados</span></div>
-              <div><strong id="memory-seen">0</strong><span>preguntas practicadas</span></div>
-              <div><strong id="memory-review">0</strong><span>preguntas para repasar</span></div>
-            </div>
+          <section class="study-section" aria-labelledby="chapter-progress-title">
+            <p class="eyebrow">Dónde enfocar el estudio</p><h2 id="chapter-progress-title">Tu avance por capítulo</h2>
+            <p class="muted-label">Cobertura = preguntas distintas practicadas. Las preguntas para repasar se resuelven al acertar de nuevo.</p>
+            <div id="chapter-progress" class="chapter-progress"></div>
           </section>
-
+          <section class="study-section bank-browser" aria-labelledby="bank-title">
+            <h2 id="bank-title">Buscá una pregunta</h2>
+            <label for="bank-search">Palabra, tema o identificador (por ejemplo, anac-1-1)</label>
+            <input id="bank-search" type="search" placeholder="Ángulo de ataque, altímetro…" />
+            <p id="bank-count" role="status"></p><div id="bank-results" class="bank-results"></div>
+          </section>
           <aside class="source-card">
             <div class="source-badge">ANAC</div>
             <div>
@@ -498,14 +522,14 @@
         <section id="quiz-view" class="view" hidden aria-labelledby="quiz-question">
           <div class="quiz-header">
             <div>
-              <button id="quit-button" class="text-button" type="button">← Configuración</button>
+              <button id="quit-button" class="text-button" type="button">← Pausar y guardar</button>
               <div class="quiz-meta">
                 <span id="quiz-scope-label" class="pill">Banco completo</span>
                 <span id="quiz-chapter-label" class="muted-label">Capítulo 1</span>
               </div>
             </div>
             <div class="score-box">
-              <span>Correctas</span>
+              <span id="score-label">Correctas</span>
               <strong id="live-score">0 / 0</strong>
             </div>
           </div>
@@ -520,6 +544,7 @@
           <article class="question-card">
             <div class="question-heading">
               <span id="question-number" class="question-number">Pregunta 1</span>
+              <button id="bookmark-button" class="text-button" type="button" aria-pressed="false">☆ Marcar</button>
               <span id="question-figure-tag" class="figure-tag" hidden>Incluye figura</span>
             </div>
             <h1 id="quiz-question" tabindex="-1">Cargando pregunta…</h1>
@@ -542,11 +567,11 @@
             </div>
             <div id="options-list" class="options-list" role="radiogroup" aria-labelledby="quiz-question"></div>
 
-            <div id="feedback" class="feedback" hidden>
+            <div id="feedback" class="feedback" role="status" hidden>
               <div id="feedback-icon" class="feedback-icon" aria-hidden="true">✓</div>
               <div>
                 <strong id="feedback-title">Respuesta correcta</strong>
-                <p id="feedback-text"></p>
+                <p id="feedback-text"></p><p id="answer-source" class="question-source"></p><a class="inline-link" href="teoria-ppa.pdf" target="_blank" rel="noopener">Consultar teoría y análisis ↗</a>
                 <a id="figure-link" class="inline-link" href="figuras-ppa.pdf" target="_blank" rel="noopener" hidden>
                   Abrir anexo de figuras oficiales →
                 </a>
@@ -563,12 +588,19 @@
             <span id="answered-label" class="answered-label">Respondé para continuar</span>
             <button id="next-button" class="secondary-button" type="button">Siguiente →</button>
           </nav>
+          <details class="question-map"><summary>Mapa de preguntas · saltar a una pregunta</summary>
+            <p>Actual: borde azul · ✓ respondida · ☆ marcada · círculo vacío: pendiente. En simulacro no se muestran aciertos.</p>
+            <div id="question-map" class="question-map-grid"></div>
+          </details>
+          <p class="keyboard-help">Teclado: 1–4 para elegir · Enter para guardar o avanzar · ← / → para navegar.</p>
+          <button id="finish-button" class="text-button" type="button">Finalizar y ver resultado</button>
+          <div id="finish-confirm" class="finish-confirm" hidden><p id="finish-warning"></p><button id="finish-confirm-button" class="primary-button" type="button">Sí, finalizar</button> <button id="finish-cancel" class="secondary-button" type="button">Seguir estudiando</button></div>
         </section>
 
         <section id="result-view" class="view" hidden aria-labelledby="result-title">
           <div class="result-hero">
             <p class="eyebrow">Práctica terminada</p>
-            <h1 id="result-title">Buen trabajo.</h1>
+            <h1 id="result-title" tabindex="-1">Buen trabajo.</h1>
             <p id="result-summary" class="lead"></p>
             <div id="result-badge" class="result-badge">Resultado</div>
           </div>
@@ -582,6 +614,7 @@
 
           <div class="result-actions">
             <button id="restart-button" class="primary-button" type="button">Repetir esta práctica</button>
+            <button id="retry-mistakes-button" class="secondary-button" type="button">Practicar errores y pendientes</button>
             <button id="new-practice-button" class="secondary-button" type="button">Elegir otra modalidad</button>
           </div>
 
@@ -608,6 +641,7 @@
 
     <script src="questions.js"></script>
     <script src="aircraft-data.js"></script>
+    <script src="study-core.js"></script>
     <script src="app.js"></script>
     <script src="aircraft.js"></script>
   </body>
