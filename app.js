@@ -29,6 +29,22 @@
   const previousButton = document.querySelector("#previous-button");
   const nextButton = document.querySelector("#next-button");
   const answeredLabel = document.querySelector("#answered-label");
+  const memoryStorageKey = "ppa-study-memory-v1";
+
+  function loadMemory() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(memoryStorageKey) || "{}");
+      return {
+        questions: saved.questions && typeof saved.questions === "object" ? saved.questions : {},
+        sessions: Array.isArray(saved.sessions) ? saved.sessions : [],
+        active: saved.active && Array.isArray(saved.active.poolIds) ? saved.active : null,
+      };
+    } catch {
+      return { questions: {}, sessions: [], active: null };
+    }
+  }
+
+  const memory = loadMemory();
 
   const state = {
     pool: [],
@@ -64,7 +80,67 @@
       if (item) item.hidden = item !== view;
     });
     closeMenu();
+    if (view === setupView) renderMemorySummary();
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function saveMemory() {
+    try {
+      localStorage.setItem(memoryStorageKey, JSON.stringify(memory));
+    } catch {
+      // Keep the current practice usable if browser storage is unavailable.
+    }
+    renderMemorySummary();
+  }
+
+  function renderMemorySummary() {
+    const card = document.querySelector("#study-memory");
+    if (!card) return;
+    const active = memory.active;
+    card.hidden = !active && memory.sessions.length === 0 && Object.keys(memory.questions).length === 0;
+    document.querySelector("#memory-sessions").textContent = String(memory.sessions.length);
+    document.querySelector("#memory-simulations").textContent = String(memory.sessions.filter((session) => session.scope === "simulation").length);
+    document.querySelector("#memory-seen").textContent = String(Object.keys(memory.questions).length);
+    document.querySelector("#memory-review").textContent = String(Object.values(memory.questions).filter((item) => item.wrong > 0).length);
+    const resumeButton = document.querySelector("#resume-button");
+    resumeButton.hidden = !active;
+    if (active) {
+      const answered = Object.keys(active.answers || {}).length;
+      document.querySelector("#memory-summary").textContent = `${active.config.scope === "simulation" ? "Simulacro" : active.config.scope === "daily" ? "Repaso diario" : "Banco completo"} · pregunta ${Math.min(active.index + 1, active.poolIds.length)} de ${active.poolIds.length} · ${answered} contestadas`;
+    } else {
+      document.querySelector("#memory-summary").textContent = "El progreso y los intentos se guardan en este navegador.";
+    }
+  }
+
+  function saveActivePractice() {
+    if (!state.pool.length) return;
+    memory.active = {
+      poolIds: state.pool.map((question) => question.id),
+      index: state.index,
+      config: state.config,
+      answers: Object.fromEntries(state.answers),
+      startedAt: state.startedAt || new Date().toISOString(),
+    };
+    saveMemory();
+  }
+
+  function resumePractice() {
+    if (!memory.active) return;
+    const byId = new Map(questions.map((question) => [question.id, question]));
+    const pool = memory.active.poolIds.map((id) => byId.get(id)).filter(Boolean);
+    if (!pool.length) {
+      memory.active = null;
+      saveMemory();
+      return;
+    }
+    state.pool = pool;
+    state.index = Math.min(memory.active.index || 0, pool.length - 1);
+    state.config = memory.active.config || { scope: "all", order: "ordered", chapter: "all" };
+    state.answers = new Map(Object.entries(memory.active.answers || {}).map(([id, answer]) => [id, answer]));
+    state.startedAt = memory.active.startedAt;
+    showView(quizView);
+    renderQuestion();
+    document.querySelector("#quiz-question").focus({ preventScroll: true });
   }
 
   window.PPA_NAVIGATION = {
@@ -234,9 +310,16 @@
     document.querySelector("#progress-percent").textContent = `${percent}%`;
     document.querySelector("#progress-bar").style.width = `${percent}%`;
     document.querySelector("#live-score").textContent = `${correctCount()} / ${state.answers.size}`;
+    const questionMemory = memory.questions[question.id] || { attempts: 0, correct: 0, wrong: 0 };
+    document.querySelector("#question-memory").textContent = questionMemory.attempts
+      ? `Practicada ${questionMemory.attempts} ${questionMemory.attempts === 1 ? "vez" : "veces"} · ${questionMemory.correct} ${questionMemory.correct === 1 ? "acierto" : "aciertos"}${questionMemory.wrong ? ` · ${questionMemory.wrong} ${questionMemory.wrong === 1 ? "error" : "errores"}` : ""}`
+      : "Primera vez que practicás esta pregunta";
     previousButton.disabled = state.index === 0;
-    nextButton.textContent = state.index === state.pool.length - 1 ? "Ver resultado →" : "Siguiente →";
-    answeredLabel.textContent = savedAnswer ? "Respuesta guardada" : "Respondé para continuar";
+    const unanswered = state.pool.filter((item) => !state.answers.has(item.id)).length;
+    nextButton.textContent = state.index === state.pool.length - 1
+      ? (unanswered ? `Ver pendientes (${unanswered}) →` : "Ver resultado →")
+      : "Siguiente →";
+    answeredLabel.textContent = savedAnswer ? "Respuesta guardada" : "Podés responder ahora o seguir";
 
     renderOptions(question, savedAnswer);
     if (savedAnswer) {
@@ -268,6 +351,8 @@
     state.pending = null;
     state.answers = new Map();
     state.config = { scope, order, chapter };
+    state.startedAt = new Date().toISOString();
+    saveActivePractice();
     showView(quizView);
     renderQuestion();
     document.querySelector("#quiz-question").focus({ preventScroll: true });
@@ -278,6 +363,13 @@
     if (!question || state.pending === null || state.answers.has(question.id)) return;
     const answer = { selected: state.pending, isCorrect: state.pending === question.correct };
     state.answers.set(question.id, answer);
+    const item = memory.questions[question.id] || { attempts: 0, correct: 0, wrong: 0 };
+    item.attempts += 1;
+    if (answer.isCorrect) item.correct += 1;
+    else item.wrong += 1;
+    item.lastSeen = new Date().toISOString();
+    memory.questions[question.id] = item;
+    saveActivePractice();
     renderQuestion();
     renderFeedback(question, answer);
   }
@@ -285,11 +377,8 @@
   function moveQuestion(direction) {
     const question = currentQuestion();
     if (!question) return;
-    if (!state.answers.has(question.id)) {
-      answeredLabel.textContent = "Primero elegí y comprobá una respuesta";
-      return;
-    }
     state.index = Math.max(0, Math.min(state.pool.length - 1, state.index + direction));
+    saveActivePractice();
     renderQuestion();
     document.querySelector("#quiz-question").focus({ preventScroll: true });
   }
@@ -297,7 +386,8 @@
   function showResults() {
     const total = state.pool.length;
     const correct = correctCount();
-    const wrong = total - correct;
+    const wrong = [...state.answers.values()].filter((answer) => !answer.isCorrect).length;
+    const unanswered = total - state.answers.size;
     const percent = total ? Math.round((correct / total) * 100) : 0;
     const isSimulation = state.config.scope === "simulation";
     const isDaily = state.config.scope === "daily";
@@ -309,10 +399,10 @@
         ? "Repaso diario terminado."
         : "Práctica terminada.";
     document.querySelector("#result-summary").textContent = isSimulation
-      ? `Lograste ${percent}%. La referencia de aprobación es 75%, igual que en el examen teórico indicado por ANAC.`
+      ? `Lograste ${percent}%. ${unanswered ? `Dejaste ${unanswered} sin responder. ` : ""}La referencia de aprobación es 75%, igual que en el examen teórico indicado por ANAC.`
       : isDaily
-        ? `Completaste tus ${total} preguntas del repaso diario. Volvé mañana para mantener el ritmo.`
-      : `Terminaste ${total} preguntas del banco. Usá los errores como guía para tu próximo repaso.`;
+        ? `Terminaste el repaso diario: ${state.answers.size} respondidas y ${unanswered} sin responder.`
+      : `Terminaste esta práctica: ${state.answers.size} respondidas y ${unanswered} sin responder. Usá los errores como guía para tu próximo repaso.`;
     const badge = document.querySelector("#result-badge");
     badge.textContent = isSimulation
       ? (passed ? "APROBADO · 75% o más" : "A seguir practicando · menos de 75%")
@@ -322,9 +412,10 @@
     badge.className = `result-badge ${isSimulation ? (passed ? "pass" : "fail") : ""}`;
     document.querySelector("#result-correct").textContent = String(correct);
     document.querySelector("#result-wrong").textContent = String(wrong);
+    document.querySelector("#result-unanswered").textContent = String(unanswered);
     document.querySelector("#result-percent").textContent = `${percent}%`;
 
-    const mistakes = state.pool.filter((question) => !state.answers.get(question.id)?.isCorrect);
+    const mistakes = state.pool.filter((question) => state.answers.has(question.id) && !state.answers.get(question.id).isCorrect);
     const mistakesSection = document.querySelector("#mistakes-section");
     const mistakesList = document.querySelector("#mistakes-list");
     mistakesList.replaceChildren();
@@ -340,6 +431,19 @@
       item.append(title, answer);
       mistakesList.appendChild(item);
     });
+    memory.sessions.push({
+      scope: state.config.scope,
+      total,
+      answered: state.answers.size,
+      correct,
+      wrong,
+      unanswered,
+      percent,
+      completedAt: new Date().toISOString(),
+    });
+    memory.sessions = memory.sessions.slice(-100);
+    memory.active = null;
+    saveMemory();
     showView(resultView);
   }
 
@@ -369,12 +473,16 @@
   previousButton.addEventListener("click", () => moveQuestion(-1));
   nextButton.addEventListener("click", () => {
     const question = currentQuestion();
-    if (!question || !state.answers.has(question.id)) {
-      answeredLabel.textContent = "Primero elegí y comprobá una respuesta";
-      return;
-    }
-    if (state.index === state.pool.length - 1) showResults();
-    else moveQuestion(1);
+    if (!question) return;
+    if (state.index === state.pool.length - 1) {
+      const pendingIndex = state.pool.findIndex((item) => !state.answers.has(item.id));
+      if (pendingIndex >= 0) {
+        state.index = pendingIndex;
+        saveActivePractice();
+        renderQuestion();
+        document.querySelector("#quiz-question").focus({ preventScroll: true });
+      } else showResults();
+    } else moveQuestion(1);
   });
   document.querySelector("#quit-button").addEventListener("click", goToSetup);
   document.querySelector("#ppa-home-button").addEventListener("click", window.PPA_NAVIGATION.showHome);
@@ -411,9 +519,11 @@
   document.querySelector("#new-practice-button").addEventListener("click", goToSetup);
   document.querySelectorAll('input[name="scope"], input[name="order"]').forEach((input) => input.addEventListener("change", updateSetupLabels));
   chapterSelect.addEventListener("change", updateSetupLabels);
+  document.querySelector("#resume-button").addEventListener("click", resumePractice);
 
   populateChapters();
   updateSetupLabels();
+  renderMemorySummary();
   if (!questions.length) {
     document.querySelector("#setup-title").textContent = "No se pudo cargar el banco de preguntas.";
     configForm.hidden = true;
